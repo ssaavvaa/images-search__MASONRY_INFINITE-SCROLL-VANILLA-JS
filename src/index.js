@@ -22,7 +22,6 @@ function mason(){
 
 
 const AddToDom = images => {
-
     const markup = images.map( image => galleryItemTemplate(image)).join('');
     imageContainer.innerHTML = `${imageContainer.innerHTML + markup}`
 
