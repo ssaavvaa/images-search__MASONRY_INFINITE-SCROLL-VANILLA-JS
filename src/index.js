@@ -19,8 +19,11 @@ searchForm.addEventListener('submit', handleSubmit);
 
 const perPage = 20
 
+
+
 const infScrollInstance = new InfiniteScroll( imageContainer, {  
     path:function() {
+ 
         return `${corsPass}https://pixabay.com/api/?key=${key}&q=${input.value}&image_type=photo&page=${this.pageIndex}&per_page=${perPage}`;
     },
     history: false,
@@ -37,10 +40,11 @@ infScrollInstance.on( 'error', function() {
     return ErrorMsg("Network Error");
 })
 
- let discoveredItems = perPage
+
 
  infScrollInstance.on('load', (response , event) => {
     const { hits:images , totalHits } = JSON.parse(response);
+    totalImages = totalHits;
 
     if(input.value === "" || input.value === null){
         return ErrorMsg("Пожалуйста введите слово для поиска");
@@ -50,7 +54,7 @@ infScrollInstance.on( 'error', function() {
         return ErrorMsg("Ничего не найдено по вашему запросу");
     }
 
-    if(discoveredItems > totalHits ){
+    if(discoveredItems >= totalHits ){
         ellips.style.display = "none";
         ErrorMsg("Больше нет картинок");
     }
