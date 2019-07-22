@@ -1,35 +1,20 @@
 import InfiniteScroll from 'infinite-scroll';
-import galleryItemTemplate from './template/gallery-item-template.hbs';
-
-
+import { ErrorMsg , AddToDom , errorMessage , searchForm ,
+         imageContainer , input } from './helpers/helpers';
 import './styles.css';
 
-// REFS
-const searchForm = document.querySelector('.search-form');
-const imageContainer = document.querySelector('.gallery');
-const input = document.querySelector('.search-form__input');
-const nullReturn = document.querySelector('.no_return');
-const body = document.querySelector('body');
 
-//добавляем сначала маркап а потом применяем на него мэйсонри
-
-
-
-
-// Вешаю сдушатель на сабмит
-
-function handleSubmit(e) {
+const handleSubmit = e => {
     e.preventDefault();
- 
     infScrollInstance.pageIndex = 1;
         imageContainer.innerHTML='';
-        nullReturn.style.display = "none"
+        errorMessage.style.display = "none"
         imageContainer.style.height = "auto"
         infScrollInstance.loadNextPage();
 };
+
 searchForm.addEventListener('submit', handleSubmit);
 
-// Initialize infinite-scroll
 
 const infScrollInstance = new InfiniteScroll( imageContainer, {  
     path:function() {
@@ -40,27 +25,19 @@ const infScrollInstance = new InfiniteScroll( imageContainer, {
     status: '.loader-ellips'
 });
 
-const AddToDom = images => {
-    const markup = images.map( image => galleryItemTemplate(image)).join('');
-    imageContainer.innerHTML = `${imageContainer.innerHTML + markup}`
- }
-
 
  infScrollInstance.on('load', response => {
     if(input.value === "" || input.value === null){
-        nullReturn.innerText = "Пожалуйста введите слово для поиска"
-        return nullReturn.style.display = "block"
+        return ErrorMsg("Пожалуйста введите слово для поиска");
     }
 
-    const {hits , totalHits } = JSON.parse(response);
+   const { hits:images = [] , totalHits } = JSON.parse(response);
 
     if(totalHits === 0){
-        nullReturn.innerText = "Ничего не найдено по вашему запросу"
-        return nullReturn.style.display = "block"
+        return ErrorMsg("Ничего не найдено по вашему запросу");
     }
 
- 
-    AddToDom(hits)
+    AddToDom(images);
 
     imagesLoaded( imageContainer, function() {
         new Masonry(imageContainer, {
