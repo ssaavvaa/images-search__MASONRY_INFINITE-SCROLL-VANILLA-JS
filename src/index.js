@@ -5,6 +5,7 @@ import './styles.css';
 const corsPass = "https://cors-anywhere.herokuapp.com/";
 const key = "13083162-0136df30d1856527dad6bba93"
 
+
 const handleSubmit = e => {
     e.preventDefault();
     infScrollInstance.pageIndex = 1;
@@ -23,16 +24,27 @@ const infScrollInstance = new InfiniteScroll( imageContainer, {
     },
     history: false,
     responseType: 'text',
-    status: '.loader-ellips'
+    status: '.loader-ellips',
+    scrollThreshold: 600,
+    checkLastPage: true
 });
 
+infScrollInstance.on( 'error', function() {
+    return ErrorMsg("Net work error");
+})
 
- infScrollInstance.on('load', response => {
+
+ infScrollInstance.on('load', (response , event) => {
+
     if(input.value === "" || input.value === null){
         return ErrorMsg("Пожалуйста введите слово для поиска");
     }
 
-   const { hits:images = [] , totalHits } = JSON.parse(response);
+   const { hits:images , totalHits } = JSON.parse(response);
+console.log(JSON.parse(response))
+    if(totalHits === undefined){
+        return ErrorMsg("Неполадки с сервером попробуйте позже");
+    }
 
     if(totalHits === 0){
         return ErrorMsg("Ничего не найдено по вашему запросу");
