@@ -2,7 +2,8 @@ import InfiniteScroll from 'infinite-scroll';
 import { ErrorMsg , AddToDom , errorMessage , searchForm ,
          imageContainer , input } from './helpers/helpers';
 import './styles.css';
-
+const corsPass = "https://cors-anywhere.herokuapp.com/";
+const key = "13083162-0136df30d1856527dad6bba93"
 
 const handleSubmit = e => {
     e.preventDefault();
@@ -18,7 +19,7 @@ searchForm.addEventListener('submit', handleSubmit);
 
 const infScrollInstance = new InfiniteScroll( imageContainer, {  
     path:function() {
-        return `https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=13083162-0136df30d1856527dad6bba93&q=${input.value}&image_type=photo&page=${this.pageIndex}&per_page=20`;
+        return `${corsPass}https://pixabay.com/api/?key=${key}&q=${input.value}&image_type=photo&page=${this.pageIndex}&per_page=20`;
     },
     history: false,
     responseType: 'text',
