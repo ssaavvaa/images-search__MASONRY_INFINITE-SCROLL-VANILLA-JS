@@ -4,7 +4,7 @@ import { ErrorMsg , AddToDom , errorMessage , searchForm ,
 import './styles.css';
 const corsPass = "https://cors-anywhere.herokuapp.com/";
 const key = "13083162-0136df30d1856527dad6bba93"
-
+const ellips = document.querySelector(".loader-ellips");
 
 const handleSubmit = e => {
     e.preventDefault();
@@ -33,7 +33,7 @@ const infScrollInstance = new InfiniteScroll( imageContainer, {
 
 
 infScrollInstance.on( 'error', function() {
-    document.querySelector(".loader-ellips").style.display = "none";
+    ellips.style.display = "none";
     return ErrorMsg("Network Error");
 })
 
@@ -55,7 +55,7 @@ infScrollInstance.on( 'error', function() {
     }
 
     if(discoveredItems > totalHits ){
-        document.querySelector(".loader-ellips").style.display = "none";
+        ellips.style.display = "none";
         ErrorMsg("Больше нет картинок");
         return false
     }
