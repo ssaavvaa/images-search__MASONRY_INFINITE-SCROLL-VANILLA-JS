@@ -31,7 +31,8 @@ const infScrollInstance = new InfiniteScroll( imageContainer, {
         return `https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=13083162-0136df30d1856527dad6bba93&q=${input.value}&image_type=photo&page=${this.pageIndex}&per_page=20`;
     },
     history: false,
-    responseType: 'text'
+    responseType: 'text',
+    status: '.loader-ellips'
 });
 
 const AddToDom = images => {
