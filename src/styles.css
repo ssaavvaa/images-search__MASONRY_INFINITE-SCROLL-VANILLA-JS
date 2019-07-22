@@ -65,10 +65,23 @@ html {
     max-width: 501px;
   }
   
-  
+  .no_return{
+ 
+   
+    color:white;
+    text-align: center;
+    padding:3px 7px;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    display: none;
+  }
+
+
   /* GALLERY */
   
   .gallery {
+    text-align: center;
+    height:auto;
     max-width: 1200px;
     list-style: none;
     display: flex;

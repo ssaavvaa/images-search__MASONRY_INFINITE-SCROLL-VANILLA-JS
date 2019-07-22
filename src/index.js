@@ -8,6 +8,8 @@ import './styles.css';
 const searchForm = document.querySelector('.search-form');
 const imageContainer = document.querySelector('.gallery');
 const input = document.querySelector('.search-form__input');
+const nullReturn = document.querySelector('.no_return');
+const body = document.querySelector('body');
 
 //добавляем сначала маркап а потом применяем на него мэйсонри
 
@@ -18,8 +20,10 @@ const input = document.querySelector('.search-form__input');
 
 function handleSubmit(e) {
     e.preventDefault();
+ 
     infScrollInstance.pageIndex = 1;
         imageContainer.innerHTML='';
+        imageContainer.style.height = "auto"
         infScrollInstance.loadNextPage();
 };
 searchForm.addEventListener('submit', handleSubmit);
@@ -41,13 +45,21 @@ const AddToDom = images => {
  }
 
 
-infScrollInstance.on('load', response => {
+ infScrollInstance.on('load', response => {
     if(input.value === "" || input.value === null){
-        return false
+        nullReturn.innerText = "Пожалуйста введите слово для поиска"
+        return nullReturn.style.display = "block"
     }
 
-    const images = JSON.parse(response).hits;
-    AddToDom(images)
+    const {hits , totalHits } = JSON.parse(response);
+
+    if(totalHits === 0){
+        nullReturn.innerText = "Ничего не найдено по вашему запросу"
+        return nullReturn.style.display = "block"
+    }
+
+ 
+    AddToDom(hits)
 
     imagesLoaded( imageContainer, function() {
         new Masonry(imageContainer, {
