@@ -12,26 +12,12 @@ const input = document.querySelector('.search-form__input');
 //добавляем сначала маркап а потом применяем на него мэйсонри
 
 
-function mason(){
-    new Masonry(imageContainer, {
-        itemSelector: '.gallery__item',
-      });
-      imageContainer.style.opacity = 1
-   };
-
-
 
 const AddToDom = images => {
     const markup = images.map( image => galleryItemTemplate(image)).join('');
     imageContainer.innerHTML = `${imageContainer.innerHTML + markup}`
-
-    const applyMason = setInterval(mason,100);
-    setTimeout(() => {
-       clearInterval(applyMason)
-   }, 2000);
  }
 
- 
 
 // Вешаю сдушатель на сабмит
 
@@ -58,8 +44,15 @@ infScrollInstance.on('load', response => {
     if(input.value === "" || input.value === null){
         return false
     }
+
     const images = JSON.parse(response).hits;
     AddToDom(images)
+
+    imagesLoaded( imageContainer, function() {
+        new Masonry(imageContainer, {
+            itemSelector: '.gallery__item'
+          });
+      });
 
 });
 
