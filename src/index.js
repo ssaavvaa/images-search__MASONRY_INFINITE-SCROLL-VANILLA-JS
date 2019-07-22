@@ -41,7 +41,7 @@ infScrollInstance.on( 'error', function() {
     }
 
    const { hits:images , totalHits } = JSON.parse(response);
-console.log(JSON.parse(response))
+
     if(totalHits === undefined){
         return ErrorMsg("Неполадки с сервером попробуйте позже");
     }
