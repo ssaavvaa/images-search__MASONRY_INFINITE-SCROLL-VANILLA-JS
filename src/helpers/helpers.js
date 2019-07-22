@@ -4,7 +4,7 @@ export const errorMessage = document.querySelector('.no_return');
 export const searchForm = document.querySelector('.search-form');
 export const imageContainer = document.querySelector('.gallery');
 export const input = document.querySelector('.search-form__input');
-
+export const parseResp = new Function('res','return JSON.parse(res)');
 
 export const ErrorMsg = error => {
     errorMessage.innerText = error;
