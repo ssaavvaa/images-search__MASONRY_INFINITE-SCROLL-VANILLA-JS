@@ -43,7 +43,6 @@ const infScrollInstance = new InfiniteScroll( imageContainer, {
         new Masonry(imageContainer, {
             itemSelector: '.gallery__item'
           });
-          imageContainer.style.opacity = 1
       });
 
 });
