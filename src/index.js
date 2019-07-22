@@ -46,21 +46,16 @@ infScrollInstance.on( 'error', function() {
         return ErrorMsg("Пожалуйста введите слово для поиска");
     }
 
-    if(discoveredItems > totalHits ){
-        ellips.style.display = "none";
-        ErrorMsg("Больше нет картинок");
-        return false
-    }
-
-    if(totalHits === undefined){
-        return ErrorMsg("Неполадки с сервером попробуйте позже");
-    }
-
     if(totalHits === 0){
         return ErrorMsg("Ничего не найдено по вашему запросу");
     }
 
-  
+    if(discoveredItems > totalHits ){
+        ellips.style.display = "none";
+        ErrorMsg("Больше нет картинок");
+    
+    }
+
 
     AddToDom(images);
 
