@@ -13,17 +13,11 @@ const input = document.querySelector('.search-form__input');
 
 
 
-const AddToDom = images => {
-    const markup = images.map( image => galleryItemTemplate(image)).join('');
-    imageContainer.innerHTML = `${imageContainer.innerHTML + markup}`
- }
-
 
 // Вешаю сдушатель на сабмит
 
 function handleSubmit(e) {
     e.preventDefault();
-
     infScrollInstance.pageIndex = 1;
         imageContainer.innerHTML='';
         infScrollInstance.loadNextPage();
@@ -40,6 +34,12 @@ const infScrollInstance = new InfiniteScroll( imageContainer, {
     responseType: 'text'
 });
 
+const AddToDom = images => {
+    const markup = images.map( image => galleryItemTemplate(image)).join('');
+    imageContainer.innerHTML = `${imageContainer.innerHTML + markup}`
+ }
+
+
 infScrollInstance.on('load', response => {
     if(input.value === "" || input.value === null){
         return false
@@ -52,6 +52,7 @@ infScrollInstance.on('load', response => {
         new Masonry(imageContainer, {
             itemSelector: '.gallery__item'
           });
+          imageContainer.style.opacity = 1
       });
 
 });
