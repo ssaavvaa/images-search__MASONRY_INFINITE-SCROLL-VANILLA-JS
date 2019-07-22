@@ -55,7 +55,7 @@ infScrollInstance.on( 'error', function() {
         return ErrorMsg("Ничего не найдено по вашему запросу");
     }
 
-    if(discoveredItems > totalHits ){
+    if(discoveredItems >= totalHits ){
         ellips.style.display = "none";
         ErrorMsg("Больше нет картинок");
     }
