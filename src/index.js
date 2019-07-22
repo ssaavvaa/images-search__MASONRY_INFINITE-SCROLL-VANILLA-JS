@@ -19,7 +19,8 @@ searchForm.addEventListener('submit', handleSubmit);
 
 const perPage = 20
 
-
+let discoveredItems = perPage;
+let totalImages = 0;
 
 const infScrollInstance = new InfiniteScroll( imageContainer, {  
     path:function() {
@@ -54,7 +55,7 @@ infScrollInstance.on( 'error', function() {
         return ErrorMsg("Ничего не найдено по вашему запросу");
     }
 
-    if(discoveredItems >= totalHits ){
+    if(discoveredItems > totalHits ){
         ellips.style.display = "none";
         ErrorMsg("Больше нет картинок");
     }
