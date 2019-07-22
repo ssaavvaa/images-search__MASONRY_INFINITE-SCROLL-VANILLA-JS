@@ -53,9 +53,7 @@ infScrollInstance.on( 'error', function() {
     if(discoveredItems > totalHits ){
         ellips.style.display = "none";
         ErrorMsg("Больше нет картинок");
-    
     }
-
 
     AddToDom(images);
 
@@ -66,7 +64,7 @@ infScrollInstance.on( 'error', function() {
       });
 
       discoveredItems += 20
- 
+
 });
 
 
