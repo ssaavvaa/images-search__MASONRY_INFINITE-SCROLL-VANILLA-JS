@@ -17,7 +17,7 @@ const handleSubmit = e => {
 
 searchForm.addEventListener('submit', handleSubmit);
 
-const perPage = 20
+const perPage = 20;
 
 let discoveredItems = perPage;
 
@@ -53,10 +53,13 @@ infScrollInstance.on( 'error', function() {
         return ErrorMsg("Ничего не найдено по вашему запросу");
     }
 
-    if(discoveredItems >= totalHits ){
-        ellips.style.display = "none";
-        ErrorMsg("Больше нет картинок");
-    }
+
+       if(discoveredItems >= totalHits ){
+          ellips.style.display = "none";
+          ErrorMsg("нет картинок");
+          throw new Error("aaaaaaaa")
+       }
+  
 
     AddToDom(images);
 
