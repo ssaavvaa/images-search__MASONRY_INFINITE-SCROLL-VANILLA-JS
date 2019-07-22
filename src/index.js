@@ -11,18 +11,25 @@ const inputValue = document.querySelector('.search-form__input');
 
 //добавляем сначала маркап а потом применяем на него мэйсонри
 
+
+function mason(){
+    new Masonry(imageContainer, {
+        itemSelector: '.gallery__item',
+      });
+      imageContainer.style.opacity = 1
+   };
+
+
+
 const AddToDom = images => {
-    imageContainer.style.opacity = 0
+
     const markup = images.map( image => galleryItemTemplate(image)).join('');
     imageContainer.innerHTML = `${imageContainer.innerHTML + markup}`
+
+    const applyMason = setInterval(mason,100);
     setTimeout(() => {
-        new Masonry(imageContainer, {
-            itemSelector: '.gallery__item',
-          });
-          imageContainer.style.opacity = 1
-    },800);
-
-
+       clearInterval(applyMason)
+   }, 1000);
  }
 
 
