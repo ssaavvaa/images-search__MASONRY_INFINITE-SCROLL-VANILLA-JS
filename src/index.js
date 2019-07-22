@@ -17,31 +17,34 @@ const handleSubmit = e => {
 
 searchForm.addEventListener('submit', handleSubmit);
 
+const perPage = 20
 
 const infScrollInstance = new InfiniteScroll( imageContainer, {  
     path:function() {
-        return `${corsPass}https://pixabay.com/api/?key=${key}&q=${input.value}&image_type=photo&page=${this.pageIndex}&per_page=20`;
+        return `${corsPass}https://pixabay.com/api/?key=${key}&q=${input.value}&image_type=photo&page=${this.pageIndex}&per_page=${perPage}`;
     },
     history: false,
     responseType: 'text',
     status: '.loader-ellips',
     scrollThreshold: 600,
-    checkLastPage: true
+    checkLastPage:".last_page"
 });
+
+
 
 infScrollInstance.on( 'error', function() {
     document.querySelector(".loader-ellips").style.display = "none";
-    return ErrorMsg("больше нет картинок");
+    return ErrorMsg("Network Error");
 })
 
+ let discoveredItems = perPage
 
  infScrollInstance.on('load', (response , event) => {
+    const { hits:images , totalHits } = JSON.parse(response);
 
     if(input.value === "" || input.value === null){
         return ErrorMsg("Пожалуйста введите слово для поиска");
     }
-
-   const { hits:images , totalHits } = JSON.parse(response);
 
     if(totalHits === undefined){
         return ErrorMsg("Неполадки с сервером попробуйте позже");
@@ -49,6 +52,12 @@ infScrollInstance.on( 'error', function() {
 
     if(totalHits === 0){
         return ErrorMsg("Ничего не найдено по вашему запросу");
+    }
+
+    if(discoveredItems > totalHits ){
+        document.querySelector(".loader-ellips").style.display = "none";
+        ErrorMsg("Больше нет картинок");
+        return false
     }
 
     AddToDom(images);
@@ -59,5 +68,9 @@ infScrollInstance.on( 'error', function() {
           });
       });
 
+      discoveredItems += 20
+ 
 });
+
+
 
