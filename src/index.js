@@ -7,7 +7,7 @@ import './styles.css';
 // REFS
 const searchForm = document.querySelector('.search-form');
 const imageContainer = document.querySelector('.gallery');
-const inputValue = document.querySelector('.search-form__input');
+const input = document.querySelector('.search-form__input');
 
 //добавляем сначала маркап а потом применяем на него мэйсонри
 
@@ -28,14 +28,16 @@ const AddToDom = images => {
     const applyMason = setInterval(mason,100);
     setTimeout(() => {
        clearInterval(applyMason)
-   }, 1000);
+   }, 2000);
  }
 
+ 
 
 // Вешаю сдушатель на сабмит
 
 function handleSubmit(e) {
     e.preventDefault();
+
     infScrollInstance.pageIndex = 1;
         imageContainer.innerHTML='';
         infScrollInstance.loadNextPage();
@@ -46,14 +48,16 @@ searchForm.addEventListener('submit', handleSubmit);
 
 const infScrollInstance = new InfiniteScroll( imageContainer, {  
     path:function() {
-        return `https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=13083162-0136df30d1856527dad6bba93&q=${inputValue.value}&image_type=photo&page=${this.pageIndex}&per_page=20`;
+        return `https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=13083162-0136df30d1856527dad6bba93&q=${input.value}&image_type=photo&page=${this.pageIndex}&per_page=20`;
     },
     history: false,
-    responseType: 'text',
-    status: '.loader-ellips'
+    responseType: 'text'
 });
 
 infScrollInstance.on('load', response => {
+    if(input.value === "" || input.value === null){
+        return false
+    }
     const images = JSON.parse(response).hits;
     AddToDom(images)
 

@@ -85,67 +85,21 @@ html {
     padding:1.5px 3px;
     transition: transform .2s linear;
   }
-  
+ 
   .gallery__item img {
     width:100%;
     border:2px solid white;
   }
   
   .gallery__item:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
+    z-index:1000;
   }
   
   
   /* Ellipse */
-  
-  .loader-ellips {
-    display: none;
-    font-size: 20px; /* change size here */
-    position: relative;
-    width: 4em;
-    height: 1em;
-    margin: 10px auto;
+  @media only screen and (max-width: 1000px) {
+    .gallery__item {
+      width:50%;
+    }
   }
-  
-  .loader-ellips__dot {
-    display: block;
-    width: 1em;
-    height: 1em;
-    border-radius: 0.5em;
-    background: #fff; /* change color here */
-    position: absolute;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
-    animation-iteration-count: infinite;
-  }
-  
-  .loader-ellips__dot:nth-child(1),
-  .loader-ellips__dot:nth-child(2) {
-    left: 0;
-  }
-  .loader-ellips__dot:nth-child(3) { left: 1.5em; }
-  .loader-ellips__dot:nth-child(4) { left: 3em; }
-  
-  @keyframes reveal {
-    from { transform: scale(0.001); }
-    to { transform: scale(1); }
-  }
-  
-  @keyframes slide {
-    to { transform: translateX(1.5em) }
-  }
-  
-  .loader-ellips__dot:nth-child(1) {
-    animation-name: reveal;
-  }
-  
-  .loader-ellips__dot:nth-child(2),
-  .loader-ellips__dot:nth-child(3) {
-    animation-name: slide;
-  }
-  
-  .loader-ellips__dot:nth-child(4) {
-    animation-name: reveal;
-    animation-direction: reverse;
-  }
-  
