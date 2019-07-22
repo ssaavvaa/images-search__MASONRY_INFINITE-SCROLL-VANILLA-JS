@@ -23,6 +23,7 @@ function handleSubmit(e) {
  
     infScrollInstance.pageIndex = 1;
         imageContainer.innerHTML='';
+        nullReturn.style.display = "none"
         imageContainer.style.height = "auto"
         infScrollInstance.loadNextPage();
 };
