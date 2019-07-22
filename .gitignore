@@ -1,5 +1,7 @@
 # production
-/build
+
+/modules
+/src
 
 # Logs
 logs
