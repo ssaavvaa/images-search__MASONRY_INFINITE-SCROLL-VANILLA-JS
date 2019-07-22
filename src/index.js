@@ -30,7 +30,8 @@ const infScrollInstance = new InfiniteScroll( imageContainer, {
 });
 
 infScrollInstance.on( 'error', function() {
-    return ErrorMsg("Net work error");
+    document.querySelector(".loader-ellips").style.display = "none";
+    return ErrorMsg("больше нет картинок");
 })
 
 
